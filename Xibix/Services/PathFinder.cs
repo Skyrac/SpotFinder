@@ -1,5 +1,6 @@
 ﻿using Xibix.Services.Models;
 using System.Linq;
+
 namespace Xibix.Services
 {
     public class PathFinder
@@ -7,45 +8,45 @@ namespace Xibix.Services
         public SpotPath FindPath(int numberOfSpots = 1)
         {
             var mesh = MeshReader.GetMesh();
-            var triangles = GenerateTrianglesFromMesh(mesh);
-            
-            return new SpotPath();
-        }
 
-        private List<Triangle> GenerateTrianglesFromMesh(Mesh mesh)
-        {
-            var triangles = new List<Triangle>(mesh.Elements.Count);
-            foreach (var element in mesh.Elements)
+            var spotsSortedByHeight = mesh.Heights.OrderByDescending(height => height.Height);
+
+            return new SpotPath()
             {
-                var triangle = ConvertElementToTriangle(mesh, element);
-                triangles.Add(triangle);
-            }
-
-            MapTriangleNeighboursToTriangle(ref triangles);
-            return triangles;
+                Spots = FindValidSpots(numberOfSpots, spotsSortedByHeight, mesh.Elements)
+            };
         }
 
-        private void MapTriangleNeighboursToTriangle(ref List<Triangle> triangles)
+        private List<Spot> FindValidSpots(int numberOfSpots, IOrderedEnumerable<Spot> sortedSpots, List<Element> elements)
         {
-            foreach(var triangle in triangles)
+            var spots = new List<Spot>(numberOfSpots);
+            var invalidNeighbours = new List<int>();
+            foreach (var spot in sortedSpots)
             {
-                triangle.Neighbours = FindNeighboursOfTriangle(triangle, triangles);
+                var element = GetElementRelatedToSpot(spot, elements);
+                if (IsElementValidToBeVisitedAsSpot(element.NodeIds, invalidNeighbours))
+                {
+                    invalidNeighbours.AddRange(element.NodeIds);
+
+                    spots.Add(spot);
+
+                    if (spots.Count == numberOfSpots)
+                    {
+                        break;
+                    }
+                }
             }
+            return spots;
         }
 
-        private List<Triangle> FindNeighboursOfTriangle(Triangle sourceTriangle, List<Triangle> triangles)
+        private Element GetElementRelatedToSpot(Spot spot, List<Element> elements)
         {
-            var neighbours = triangles.Where(triangle => !triangle.Id.Equals(sourceTriangle.Id) 
-            && triangle.Nodes.Any(node => sourceTriangle.Nodes.Contains(node)))
-                .ToList();
-            return neighbours;
+            return elements.First(element => element.Id.Equals(spot.Id)); 
         }
 
-        private Triangle ConvertElementToTriangle(Mesh mesh, Element element)
+        private bool IsElementValidToBeVisitedAsSpot(List<int> entryNodeIds, List<int> invalidEntryNodes)
         {
-            var nodes = element.NodeIds.Select(nodeId => mesh.Nodes.FirstOrDefault(node => node.Id.Equals(nodeId))).ToList();
-            var height = mesh.Heights.First(mesh => mesh.Id.Equals(element.Id)).Value;
-            return new Triangle() { Id = element.Id, Nodes = nodes, Height = height};
+            return !entryNodeIds.Any(id => invalidEntryNodes.Contains(id));
         }
     }
 }

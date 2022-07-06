@@ -5,7 +5,7 @@ namespace Xibix.Services
 {
     public class MeshReader
     {
-        public static Mesh? GetMesh(string path = @"D:\Bewerbungen\Xibix\Xibix\Xibix\Ressources\mesh_test.json") 
+        public static Mesh? GetMesh(string path = @"D:\Bewerbungen\Xibix\Xibix\Xibix\Ressources\mesh20000.json") 
         {
             var json = File.ReadAllText(path);
             return JsonConvert.DeserializeObject<Mesh>(json);

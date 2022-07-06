@@ -2,10 +2,11 @@
 
 namespace Xibix.Services.Models
 {
-    public class Height
+    public class Spot
     {
         [JsonProperty("element_id")]
         public int Id { get; set; }
-        public double Value { get; set; }
+        [JsonProperty("value")]
+        public double Height { get; set; }
     }
 }

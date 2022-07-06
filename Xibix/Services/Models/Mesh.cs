@@ -7,6 +7,6 @@ namespace Xibix.Services.Models
         public List<Node> Nodes { get; set; }
         public List<Element> Elements { get; set; }
         [JsonProperty("Values")]
-        public List<Height> Heights { get; set; }
+        public List<Spot> Heights { get; set; }
     }
 }

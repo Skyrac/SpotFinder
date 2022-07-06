@@ -20,9 +20,8 @@ public class PathController : ControllerBase
 
     // GET api/values/5
     [HttpGet("{amount}")]
-    public string Get(int amount)
+    public ActionResult Get(int amount)
     {
-        _pathFinder.FindPath(1);
-        return "value";
+        return Ok(_pathFinder.FindPath(amount));
     }
 }
