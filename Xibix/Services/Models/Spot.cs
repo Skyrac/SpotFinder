@@ -1,12 +1,8 @@
-﻿using Newtonsoft.Json;
-
-namespace Xibix.Services.Models
+﻿namespace Xibix.Services.Models
 {
     public class Spot
     {
-        [JsonProperty("element_id")]
-        public int Id { get; set; }
-        [JsonProperty("value")]
-        public double Height { get; set; }
+        public int Element_Id { get; set; }
+        public double Value { get; set; }
     }
 }

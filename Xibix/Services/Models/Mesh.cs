@@ -4,9 +4,8 @@ namespace Xibix.Services.Models
 {
     public class Mesh
     {
-        public List<Node> Nodes { get; set; }
-        public List<Element> Elements { get; set; }
-        [JsonProperty("Values")]
-        public List<Spot> Heights { get; set; }
+        public List<Node> Nodes { get; set; } = new List<Node>();
+        public List<Element> Elements { get; set; } = new List<Element>();
+        public List<Spot> Values { get; set; } = new List<Spot>();
     }
 }

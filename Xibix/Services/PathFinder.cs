@@ -1,32 +1,37 @@
-﻿using Xibix.Services.Models;
-using System.Linq;
+﻿using Newtonsoft.Json;
+using Xibix.Services.Models;
 
 namespace Xibix.Services
 {
     public class PathFinder
     {
-        public SpotPath FindPath(int numberOfSpots = 1)
+        public static List<Spot> FindPath(int numberOfSpots = 1)
         {
-            var mesh = MeshReader.GetMesh();
-
-            var spotsSortedByHeight = mesh.Heights.OrderByDescending(height => height.Height);
-
-            return new SpotPath()
-            {
-                Spots = FindValidSpots(numberOfSpots, spotsSortedByHeight, mesh.Elements)
-            };
+            return FindPath(MeshReader.GetMesh(), numberOfSpots);
         }
 
-        private List<Spot> FindValidSpots(int numberOfSpots, IOrderedEnumerable<Spot> sortedSpots, List<Element> elements)
+        public static List<Spot> FindPath(Mesh mesh, int numberOfSpots = 1)
+        {
+            var spotsSortedByHeight = mesh.Values.OrderByDescending(height => height.Value);
+
+            return FindValidSpots(numberOfSpots, spotsSortedByHeight, mesh.Elements);
+        }
+
+        public static void WritePathToConsole(string jsonPath, int amountOfSpots)
+        {
+            Console.WriteLine(JsonConvert.SerializeObject(FindPath(MeshReader.GetMesh(jsonPath), amountOfSpots), Formatting.Indented));
+        }
+
+        public static List<Spot> FindValidSpots(int numberOfSpots, IOrderedEnumerable<Spot> sortedSpots, List<Element> elements)
         {
             var spots = new List<Spot>(numberOfSpots);
             var invalidNeighbours = new List<int>();
             foreach (var spot in sortedSpots)
             {
                 var element = GetElementRelatedToSpot(spot, elements);
-                if (IsElementValidToBeVisitedAsSpot(element.NodeIds, invalidNeighbours))
+                if (IsElementValidToBeVisitedAsSpot(element.Nodes, invalidNeighbours))
                 {
-                    invalidNeighbours.AddRange(element.NodeIds);
+                    invalidNeighbours.AddRange(element.Nodes);
 
                     spots.Add(spot);
 
@@ -39,12 +44,12 @@ namespace Xibix.Services
             return spots;
         }
 
-        private Element GetElementRelatedToSpot(Spot spot, List<Element> elements)
+        public static Element GetElementRelatedToSpot(Spot spot, List<Element> elements)
         {
-            return elements.First(element => element.Id.Equals(spot.Id)); 
+            return elements.First(element => element.Id.Equals(spot.Element_Id)); 
         }
 
-        private bool IsElementValidToBeVisitedAsSpot(List<int> entryNodeIds, List<int> invalidEntryNodes)
+        public static bool IsElementValidToBeVisitedAsSpot(List<int> entryNodeIds, List<int> invalidEntryNodes)
         {
             return !entryNodeIds.Any(id => invalidEntryNodes.Contains(id));
         }

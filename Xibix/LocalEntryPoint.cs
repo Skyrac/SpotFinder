@@ -1,3 +1,5 @@
+using Xibix.Services;
+
 namespace Xibix;
 
 /// <summary>
@@ -7,6 +9,11 @@ public class LocalEntryPoint
 {
     public static void Main(string[] args)
     {
+        if(args.Length >= 2 && args.Any(arg => arg.Contains(".json"))) {
+            var jsonPath = args[0];
+            var amountOfSpots = int.Parse(args[1]);
+            PathFinder.WritePathToConsole(jsonPath, amountOfSpots);
+        }
         CreateHostBuilder(args).Build().Run();
     }
 

@@ -1,27 +1,23 @@
 using Microsoft.AspNetCore.Mvc;
 using Xibix.Services;
+using Xibix.Services.Models;
 
 namespace Xibix.Controllers;
 
 [Route("api/[controller]")]
 public class PathController : ControllerBase
 {
-    private readonly PathFinder _pathFinder;
-    public PathController(PathFinder pathFinder)
-    {
-        _pathFinder = pathFinder;
-    }
     // GET api/values
-    [HttpGet]
-    public IEnumerable<string> Get()
+    [HttpPost("{amount}")]
+    public ActionResult Get(int amount, [FromBody] Mesh mesh)
     {
-        return new string[] { "value1", "value2" };
+        return Ok(PathFinder.FindPath(mesh, amount));
     }
 
     // GET api/values/5
     [HttpGet("{amount}")]
     public ActionResult Get(int amount)
     {
-        return Ok(_pathFinder.FindPath(amount));
+        return Ok(PathFinder.FindPath(amount));
     }
 }

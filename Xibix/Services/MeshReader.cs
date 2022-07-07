@@ -5,10 +5,20 @@ namespace Xibix.Services
 {
     public class MeshReader
     {
-        public static Mesh? GetMesh(string path = @"D:\Bewerbungen\Xibix\Xibix\Xibix\Ressources\mesh20000.json") 
+        public static Mesh GetMesh(string path = @"D:\Bewerbungen\Xibix\Xibix\Xibix\Ressources\mesh20000.json") 
         {
-            var json = File.ReadAllText(path);
-            return JsonConvert.DeserializeObject<Mesh>(json);
+            try
+            {
+                return GetMeshFromJson(File.ReadAllText(path));
+            } catch(Exception ex)
+            {
+                return new Mesh();
+            }
+        }
+
+        public static Mesh GetMeshFromJson(string json)
+        {
+            return JsonConvert.DeserializeObject<Mesh>(json) ?? new Mesh();
         }
     }
 }
