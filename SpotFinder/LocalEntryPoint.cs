@@ -1,6 +1,6 @@
-using Xibix.Services;
+using SpotFinder.Services;
 
-namespace Xibix;
+namespace SpotFinder;
 
 /// <summary>
 /// The Main function can be used to run the ASP.NET Core application locally using the Kestrel webserver.

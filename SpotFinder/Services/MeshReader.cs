@@ -1,11 +1,11 @@
 ﻿using Newtonsoft.Json;
-using Xibix.Services.Models;
+using SpotFinder.Services.Models;
 
-namespace Xibix.Services
+namespace SpotFinder.Services
 {
     public class MeshReader
     {
-        public static Mesh GetMesh(string path = @"D:\Bewerbungen\Xibix\Xibix\Xibix\Ressources\mesh20000.json") 
+        public static Mesh GetMesh(string path = @"./Ressources/mesh20000.json") 
         {
             try
             {

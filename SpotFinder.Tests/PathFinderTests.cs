@@ -1,8 +1,8 @@
-using Xibix.Services;
-using Xibix.Services.Models;
+using SpotFinder.Services;
+using SpotFinder.Services.Models;
 using Xunit;
 
-namespace Xibix.Tests;
+namespace SpotFinder.Tests;
 
 public class PathFinderTests
 {

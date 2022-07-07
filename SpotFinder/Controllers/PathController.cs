@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
-using Xibix.Services;
-using Xibix.Services.Models;
+using SpotFinder.Services;
+using SpotFinder.Services.Models;
 
-namespace Xibix.Controllers;
+namespace SpotFinder.Controllers;
 
 [Route("api/[controller]")]
 public class PathController : ControllerBase

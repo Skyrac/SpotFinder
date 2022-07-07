@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
-using Xibix.Services.Models;
+using SpotFinder.Services.Models;
 
-namespace Xibix.Services
+namespace SpotFinder.Services
 {
     public class PathFinder
     {

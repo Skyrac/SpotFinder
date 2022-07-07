@@ -1,4 +1,4 @@
-﻿namespace Xibix.Services.Models
+﻿namespace SpotFinder.Services.Models
 {
     public class Node
     {

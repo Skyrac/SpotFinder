@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "Xibix": {
+    "SpotFinder": {
       "commandName": "Project",
-      "commandLineArgs": "D:\\Bewerbungen\\Xibix\\Xibix\\Xibix\\Ressources\\mesh20000.json 100",
+      "commandLineArgs": "",
       "launchBrowser": true,
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"

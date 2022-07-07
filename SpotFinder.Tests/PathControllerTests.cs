@@ -2,7 +2,7 @@ using Xunit;
 
 
 
-namespace Xibix.Tests;
+namespace SpotFinder.Tests;
 
 public class PathControllerTests
 {

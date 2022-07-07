@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace Xibix.Services.Models
+namespace SpotFinder.Services.Models
 {
     public class Mesh
     {

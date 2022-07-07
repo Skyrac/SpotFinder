@@ -1,6 +1,6 @@
-using Xibix.Services;
+using SpotFinder.Services;
 
-namespace Xibix;
+namespace SpotFinder;
 
 public class Startup
 {

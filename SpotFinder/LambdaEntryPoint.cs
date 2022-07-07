@@ -1,10 +1,10 @@
-namespace Xibix;
+namespace SpotFinder;
 
 /// <summary>
 /// This class extends from APIGatewayProxyFunction which contains the method FunctionHandlerAsync which is the 
 /// actual Lambda function entry point. The Lambda handler field should be set to
 /// 
-/// Xibix::Xibix.LambdaEntryPoint::FunctionHandlerAsync
+/// SpotFinder::SpotFinder.LambdaEntryPoint::FunctionHandlerAsync
 /// </summary>
 public class LambdaEntryPoint :
 
